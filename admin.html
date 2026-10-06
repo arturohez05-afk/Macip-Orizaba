@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Blog del Maestro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0b132b; color: #fff; padding: 2rem; max-width: 800px; margin: 0 auto; }
+        .card { background: #ffffff; color: #1e293b; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); margin-bottom: 2rem; }
+        h1, h2 { font-family: 'Cinzel', serif; color: #0b132b; margin-bottom: 1rem; }
+        .form-group { margin-bottom: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem; }
+        label { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; color: #475569; }
+        input, select, textarea { padding: 0.8rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; font-family: inherit; }
+        button { background: #d4af37; color: #0b132b; border: none; padding: 1rem; border-radius: 6px; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        button:hover { background: #f3c63f; }
+        .btn-delete { background: #ef4444; color: #fff; padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 4px; }
+        .btn-delete:hover { background: #dc2626; }
+        .post-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding: 1rem 0; }
+        .post-item:last-child { border-bottom: none; }
+        #auth-screen { text-align: center; margin-top: 5rem; }
+        .back-link { display: block; text-align: center; margin-top: 1.5rem; color: #94a3b8; text-decoration: none; font-size: 0.9rem; }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <!-- PANTALLA DE ACCESO (CONTRASEÑA) -->
+    <div id="auth-screen" class="card">
+        <h1>Acceso Maestro</h1>
+        <p style="margin-bottom: 1.5rem; color: #64748b;">Ingrese la clave de acceso para administrar el blog:</p>
+        <div class="form-group">
+            <input type="password" id="pass-input" placeholder="Contraseña de administrador">
+        </div>
+        <button onclick="verificarPassword()" style="width: 100%;">Ingresar al Panel</button>
+        <a href="index.html" class="back-link">← Volver al inicio del blog</a>
+    </div>
+
+    <!-- PANEL DE ADMINISTRACIÓN (OCULTO HASTA PONER CONTRASEÑA) -->
+    <div id="admin-panel" style="display: none;">
+        
+        <!-- FORMULARIO DE PUBLICACIÓN -->
+        <div class="card">
+            <h1>Publicar Nueva Entrada</h1>
+            <p style="margin-bottom: 1.5rem; color: #64748b;">Escriba su ensayo o reflexión para el portal cultural.</p>
+            
+            <form id="blog-form" onsubmit="publicarEntrada(event)">
+                <div class="form-group">
+                    <label>Título del Ensayo / Artículo</label>
+                    <input type="text" id="post-title" placeholder="Ej. La historia de la Orquesta Clásica" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Categoría</label>
+                    <select id="post-category">
+                        <option>Bitácora Académica</option>
+                        <option>Investigación Histórica</option>
+                        <option>Reflexiones Orquestales</option>
+                        <option>Comunicado Oficial</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Contenido del Ensayo</label>
+                    <textarea id="post-content" rows="6" placeholder="Escriba aquí el texto completo..." required></textarea>
+                </div>
+
+                <button type="submit" style="width: 100%;">Publicar Ensayo en el Portal</button>
+            </form>
+        </div>
+
+        <!-- LISTADO Y ELIMINACIÓN DE PUBLICACIONES -->
+        <div class="card">
+            <h2>Gestionar / Eliminar Publicaciones</h2>
+            <div id="posts-list">
+                <p style="color: #64748b;">Cargando publicaciones...</p>
+            </div>
+            <a href="index.html" class="back-link" style="color: #475569; text-align: left; margin-top: 2rem;">← Volver al sitio principal</a>
+        </div>
+
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://etkoxhktchavxvgnnhof.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0a294aGt0Y2hhdnh2Z25uaG9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODU5MTYsImV4cCI6MjE0NjY2MTkxNn0.9zxWtUbaJ1JoGn0GWbJSxlhJwhDDtEwn65Y73oFlye0";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const CONTRASEÑA_MAESTRO = "Orizaba2026*"; 
+
+        function verificarPassword() {
+            const pass = document.getElementById('pass-input').value;
+            if (pass === CONTRASEÑA_MAESTRO) {
+                document.getElementById('auth-screen').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+                cargarPublicaciones();
+            } else {
+                alert('Contraseña incorrecta.');
+            }
+        }
+
+        async function publicarEntrada(e) {
+            e.preventDefault();
+            const title = document.getElementById('post-title').value;
+            const category = document.getElementById('post-category').value;
+            const content = document.getElementById('post-content').value;
+
+            const { data, error } = await supabaseClient
+                .from('blog_posts')
+                .insert([{ title, category, content }]);
+
+            if (error) {
+                alert('Error al publicar: ' + error.message);
+            } else {
+                alert('¡Publicación realizada con éxito!');
+                document.getElementById('blog-form').reset();
+                cargarPublicaciones(); 
+            }
+        }
+
+        async function cargarPublicaciones() {
+            const listContainer = document.getElementById('posts-list');
+            const { data: posts, error } = await supabaseClient
+                .from('blog_posts')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                listContainer.innerHTML = '<p style="color: red;">Error al cargar las publicaciones.</p>';
+                return;
+            }
+
+            if (!posts || posts.length === 0) {
+                listContainer.innerHTML = '<p style="color: #64748b;">No hay publicaciones disponibles.</p>';
+                return;
+            }
+
+            listContainer.innerHTML = posts.map(post => `
+                <div class="post-item">
+                    <div>
+                        <strong style="color: #0b132b; font-size: 1.1rem;">${post.title}</strong>
+                        <br>
+                        <small style="color: #64748b;">Categoría: ${post.category || 'General'}</small>
+                    </div>
+                    <button class="btn-delete" onclick="eliminarEntrada(${post.id})">Eliminar</button>
+                </div>
+            `).join('');
+        }
+
+        async function eliminarEntrada(id) {
+            if (confirm('¿Está seguro de que desea eliminar esta publicación?')) {
+                const { data, error } = await supabaseClient
+                    .from('blog_posts')
+                    .delete()
+                    .eq('id', id)
+                    .select();
+
+                if (error) {
+                    alert('Error al eliminar: ' + error.message);
+                } else {
+                    alert('Publicación eliminada correctamente.');
+                    cargarPublicaciones();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
