@@ -512,14 +512,14 @@
             width: 35%;
         }
 
-        /* PDF VIEWER */
-        .pdf-viewer-container {
-            width: 100%;
-            height: 50vh;
-            border: 1px solid var(--border-color);
+        /* PDF VIEWER LIMPIO */
+        .pdf-viewer-wrapper {
+            background: #ffffff;
+            border: 1px solid var(--border-gold);
             border-radius: 8px;
             overflow: hidden;
-            background: #000;
+            margin: 1rem 0;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
         }
 
         footer {
@@ -635,7 +635,7 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 0.8rem;">
-                    <a href="https://www.youtube.com/watch?v=r4oYzK8Ktd0" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background: linear-gradient(135deg, #a81c1c 0%, #7f1212 100%); border-color: #ef4444;">
+                    <a href="https://www.youtube.com/watch?v=r4oYzK8Ktd0" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background: linear-gradient(135deg, #a81c1c 0%, #7f1212 100%); border-color: #ef4444; width: auto; display: inline-flex;">
                         Ver Interpretación en YouTube
                     </a>
                 </div>
@@ -793,37 +793,31 @@
                 </form>
             </section>
 
-<!-- SECCIÓN HISTORIA DE LA ORQUESTA CON PREVISUALIZACIÓN LIMPIA -->
-<section id="historia-orquesta" class="card">
-    <span class="tag-badge font-cinzel">Reseña Histórica OCO</span>
-    <h2 class="section-title font-cinzel">Historia de la Orquesta</h2>
-    <p class="bio-paragraph">
-        Conoce el origen, evolución y legado cultural de la Orquesta Clásica de Orizaba A.C., fundada en 1985 bajo la dirección del Dr. Armando López Macip.
-    </p>
-
-    <!-- PREVISUALIZADOR AJUSTADO SIN BARRAS NEGRAS -->
-    <div style="position: relative; width: 100%; height: 500px; border-radius: 8px; overflow: hidden; border: 1px solid var(--accent-gold); background: #ffffff; margin: 1rem 0; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);">
-        <object data="historia_orquesta.pdf#toolbar=0&navpanes=0&scrollbar=1" type="application/pdf" width="100%" height="100%">
-            <iframe src="historia_orquesta.pdf#toolbar=0&navpanes=0" width="100%" height="100%" style="border: none; background: #ffffff;">
-                <p style="padding: 1.5rem; text-align: center; color: var(--text-muted);">
-                    Su navegador no soporta la visualización previa directa.
+            <!-- SECCIÓN HISTORIA DE LA ORQUESTA (PREVISUALIZACIÓN PDF LIMPIA Y CORREGIDA) -->
+            <section id="historia-orquesta" class="card">
+                <span class="tag-badge font-cinzel">Reseña Histórica OCO</span>
+                <h2 class="section-title font-cinzel">Historia de la Orquesta</h2>
+                <p class="bio-paragraph">
+                    Conoce el origen, evolución y legado cultural de la Orquesta Clásica de Orizaba A.C., fundada en 1985 bajo la dirección del Dr. Armando López Macip.
                 </p>
-            </iframe>
-        </object>
-    </div>
 
-    <!-- BOTONES DE ACCIÓN DIRECTA -->
-    <div style="display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;">
-        <a href="historia_orquesta.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary" style="margin-top: 0; width: auto;">
-            <svg class="btn-icon-svg" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-            Abrir PDF Completo
-        </a>
-        <a href="historia_orquesta.pdf" download class="btn-primary" style="margin-top: 0; width: auto; background: transparent; color: var(--primary); border: 1px solid var(--accent-gold);">
-            <svg class="btn-icon-svg" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-            Descargar Documento
-        </a>
-    </div>
-</section>
+                <div class="pdf-viewer-wrapper" style="height: 450px;">
+                    <object data="historia_orquesta.pdf#toolbar=0&navpanes=0&scrollbar=1" type="application/pdf" width="100%" height="100%">
+                        <iframe src="historia_orquesta.pdf#toolbar=0&navpanes=0" width="100%" height="100%" style="border: none; background: #ffffff;">
+                            <p style="padding: 1rem; text-align: center;">Su navegador no soporta la visualización previa directa.</p>
+                        </iframe>
+                    </object>
+                </div>
+
+                <div style="display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;">
+                    <a href="historia_orquesta.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary" style="width: auto; padding: 0.6rem 1.2rem;">
+                        Abrir PDF Completo
+                    </a>
+                    <a href="historia_orquesta.pdf" download class="btn-primary" style="width: auto; padding: 0.6rem 1.2rem; background: transparent; color: var(--primary); border: 1px solid var(--accent-gold);">
+                        Descargar Documento
+                    </a>
+                </div>
+            </section>
 
             <!-- BLOG -->
             <section id="blog" class="card">
