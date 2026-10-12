@@ -7,21 +7,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0b132b; color: #fff; padding: 2rem; max-width: 800px; margin: 0 auto; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0b132b; color: #fff; padding: 2rem; max-width: 800px; margin: 0 auto; box-sizing: border-box; }
         .card { background: #ffffff; color: #1e293b; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); margin-bottom: 2rem; }
         h1, h2 { font-family: 'Cinzel', serif; color: #0b132b; margin-bottom: 1rem; }
         .form-group { margin-bottom: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem; }
         label { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; color: #475569; }
-        input, select, textarea { padding: 0.8rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; font-family: inherit; }
-        button { background: #d4af37; color: #0b132b; border: none; padding: 1rem; border-radius: 6px; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        input, select, textarea { padding: 0.8rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; font-family: inherit; width: 100%; box-sizing: border-box; }
+        button { background: #d4af37; color: #0b132b; border: none; padding: 1rem; border-radius: 6px; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; width: 100%; }
         button:hover { background: #f3c63f; }
-        .btn-delete { background: #ef4444; color: #fff; padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 4px; }
+        .btn-delete { background: #ef4444; color: #fff; padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 4px; width: auto; }
         .btn-delete:hover { background: #dc2626; }
-        .post-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding: 1rem 0; }
+        .post-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding: 1rem 0; flex-wrap: wrap; gap: 1rem; }
         .post-item:last-child { border-bottom: none; }
         #auth-screen { text-align: center; margin-top: 5rem; }
         .back-link { display: block; text-align: center; margin-top: 1.5rem; color: #94a3b8; text-decoration: none; font-size: 0.9rem; }
         .back-link:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .card { padding: 1.2rem; }
+            .post-item { flex-direction: column; align-items: flex-start; }
+            .btn-delete { width: 100%; text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -33,7 +40,7 @@
         <div class="form-group">
             <input type="password" id="pass-input" placeholder="Contraseña de administrador">
         </div>
-        <button onclick="verificarPassword()" style="width: 100%;">Ingresar al Panel</button>
+        <button onclick="verificarPassword()">Ingresar al Panel</button>
         <a href="index.html" class="back-link">← Volver al inicio del blog</a>
     </div>
 
@@ -66,7 +73,7 @@
                     <textarea id="post-content" rows="6" placeholder="Escriba aquí el texto completo..." required></textarea>
                 </div>
 
-                <button type="submit" style="width: 100%;">Publicar Ensayo en el Portal</button>
+                <button type="submit">Publicar Ensayo en el Portal</button>
             </form>
         </div>
 
@@ -81,6 +88,7 @@
 
     </div>
 
+    <!-- SCRIPTS INTEGRADOS -->
     <script>
         const SUPABASE_URL = "https://etkoxhktchavxvgnnhof.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0a294aGt0Y2hhdnh2Z25uaG9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODU5MTYsImV4cCI6MjE0NjY2MTkxNn0.9zxWtUbaJ1JoGn0GWbJSxlhJwhDDtEwn65Y73oFlye0";
@@ -163,6 +171,16 @@
                 }
             }
         }
+
+        // SCRIPT UNIVERSAL DE ADAPTABILIDAD MÓVIL
+        document.addEventListener('DOMContentLoaded', () => {
+            const camposFormulario = document.querySelectorAll('input, select, textarea');
+            camposFormulario.forEach(campo => {
+                campo.addEventListener('focus', () => {
+                    if (window.innerWidth <= 768) campo.style.fontSize = '16px';
+                });
+            });
+        });
     </script>
 </body>
 </html>

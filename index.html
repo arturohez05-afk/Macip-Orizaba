@@ -1219,7 +1219,7 @@
         <p>Proyecto de Homenaje Biográfico & Difusión Patrimonial • Orizaba, Veracruz, México</p>
     </footer>
 
-    <!-- SCRIPT DEL CARRUSEL Y SUPABASE -->
+    <!-- SCRIPTS INTEGRADOS -->
     <script>
         // CONFIGURACIÓN DE SUPABASE
         const SUPABASE_URL = "https://etkoxhktchavxvgnnhof.supabase.co";
@@ -1279,6 +1279,50 @@
         function currentSlide(n) { showSlide(slideIndex = n); }
 
         setInterval(() => { moveSlide(1); }, 5000);
+
+        // SCRIPT UNIVERSAL DE ADAPTABILIDAD MÓVIL
+        document.addEventListener('DOMContentLoaded', () => {
+            const ajustarAlturaMovil = () => {
+                let vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            };
+            window.addEventListener('resize', ajustarAlturaMovil);
+            window.addEventListener('orientationchange', ajustarAlturaMovil);
+            ajustarAlturaMovil();
+
+            const contenedorCarrusel = document.querySelector('.carousel-container');
+            if (contenedorCarrusel) {
+                let xInicial = 0;
+                let xFinal = 0;
+                contenedorCarrusel.addEventListener('touchstart', (e) => {
+                    xInicial = e.changedTouches[0].screenX;
+                }, { passive: true });
+                contenedorCarrusel.addEventListener('touchend', (e) => {
+                    xFinal = e.changedTouches[0].screenX;
+                    if (xFinal < xInicial - 40) moveSlide(1);
+                    if (xFinal > xInicial + 40) moveSlide(-1);
+                }, { passive: true });
+            }
+
+            const camposFormulario = document.querySelectorAll('input, select, textarea');
+            camposFormulario.forEach(campo => {
+                campo.addEventListener('focus', () => {
+                    if (window.innerWidth <= 768) campo.style.fontSize = '16px';
+                });
+            });
+
+            const tablas = document.querySelectorAll('table');
+            tablas.forEach(tabla => {
+                if (!tabla.parentElement.classList.contains('tabla-responsiva-wrapper')) {
+                    const envoltura = document.createElement('div');
+                    envoltura.style.width = '100%';
+                    envoltura.style.overflowX = 'auto';
+                    envoltura.style.webkitOverflowScrolling = 'touch';
+                    tabla.parentNode.insertBefore(envoltura, tabla);
+                    envoltura.appendChild(tabla);
+                }
+            });
+        });
     </script>
 
 </body>
