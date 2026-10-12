@@ -3,34 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Armando Sacramento López Macip | Orquesta Clásica de Orizaba</title>
-    <meta name="description" content="Sitio oficial sobre Armando Sacramento López Macip, Director de la Orquesta Clásica de Orizaba. Trayectoria, historia y presentaciones musicales.">
-    <meta name="keywords" content="Armando Sacramento López Macip, Armando López Macip, Orquesta Clásica de Orizaba, Orizaba, Director de Orquesta, Veracruz, OCO">
-    <meta name="author" content="Armando Sacramento López Macip">
-    <meta name="robots" content="index, follow">
+    <title>Dr. Armando Sacramento López Macip - Portal Oficial & Biográfico</title>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts de Alta Gama -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Librería de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
+        /* RESET & PALETA DE COLORES MAGISTERIAL */
         :root {
+            --primary-dark: #070d1e;
             --primary: #0b132b;
             --primary-light: #1c2541;
             --accent-gold: #d4af37;
-            --accent-gold-dark: #aa8c2c;
-            --bg-body: #f8fafc;
+            --accent-gold-light: #f3c63f;
+            --accent-gold-dark: #997a15;
+            --bg-body: #f1f4f9;
             --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
+            --text-dark: #111827;
+            --text-muted: #4b5563;
             --border-gold: rgba(212, 175, 55, 0.35);
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            --transition: all 0.3s ease;
+            --shadow-subtle: 0 10px 30px -5px rgba(11, 19, 43, 0.08);
+            --shadow-elevated: 0 20px 40px -10px rgba(11, 19, 43, 0.16);
+            --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -46,233 +45,246 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.6;
+            color: var(--text-dark);
+            line-height: 1.8;
             overflow-x: hidden;
-        }
-
-        img, iframe, video {
-            max-width: 100%;
-            height: auto;
-            display: block;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(28, 37, 65, 0.03) 0%, transparent 40%);
         }
 
         .font-cinzel {
             font-family: 'Cinzel', serif;
+            letter-spacing: 0.5px;
         }
 
         .font-garamond {
             font-family: 'Cormorant Garamond', serif;
         }
 
-        /* BANNER SUPERIOR */
+        /* BANNER INSTITUCIONAL */
         .top-banner {
-            background: var(--primary);
+            background: linear-gradient(90deg, #050917 0%, #111a36 50%, #050917 100%);
             color: var(--accent-gold);
             text-align: center;
-            padding: 0.5rem 1rem;
-            font-size: 0.65rem;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.82rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             border-bottom: 2px solid var(--accent-gold);
-            font-family: 'Cinzel', serif;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
         }
 
-        /* ENCABEZADO Y MENÚ HAMBURGUESA */
+        .top-banner-icon {
+            width: 16px;
+            height: 16px;
+            fill: var(--accent-gold);
+        }
+
+        /* ENCABEZADO Y NAVEGACIÓN */
         header {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background-color: var(--primary);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background-color: rgba(7, 13, 30, 0.96);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
         }
 
         .header-container {
-            max-width: 1200px;
+            max-width: 1350px;
             margin: 0 auto;
-            padding: 0.75rem 1rem;
+            padding: 1rem 1.75rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.2rem;
         }
 
         .brand-box {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1.25rem;
         }
 
         .brand-avatar {
-            width: 38px;
-            height: 38px;
-            background: linear-gradient(135deg, #f3c63f, #a37910);
-            color: var(--primary);
+            width: 56px;
+            height: 56px;
+            background: radial-gradient(circle, #f3c63f 0%, #a37910 100%);
+            color: #070d1e;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
-            font-size: 1.1rem;
-            font-family: 'Cinzel', serif;
-            flex-shrink: 0;
-        }
-
-        .brand-title {
-            font-size: 0.82rem;
-            color: #ffffff;
-            font-weight: 700;
-            font-family: 'Cinzel', serif;
-            line-height: 1.2;
+            font-weight: 900;
+            font-size: 1.75rem;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4), inset 0 0 10px rgba(255,255,255,0.5);
+            border: 2px solid #ffffff;
         }
 
         .brand-sub {
-            font-size: 0.55rem;
+            font-size: 0.7rem;
             color: var(--accent-gold);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2.5px;
+            font-weight: 800;
             display: block;
+            margin-bottom: 2px;
         }
 
-        /* BOTÓN MENÚ MÓVIL */
-        .menu-toggle {
-            background: transparent;
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-            padding: 0.3rem 0.6rem;
-            border-radius: 6px;
-            cursor: pointer;
+        .brand-title {
+            font-size: 1.3rem;
+            color: #ffffff;
+            font-weight: 800;
+            line-height: 1.2;
         }
 
         nav.nav-links {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background-color: var(--primary);
-            flex-direction: column;
-            padding: 0.5rem 0;
-            border-bottom: 2px solid var(--accent-gold);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        nav.nav-links.active {
             display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
         }
 
         nav.nav-links a {
             text-decoration: none;
-            color: #ffffff;
-            font-size: 0.8rem;
+            color: #e2e8f0;
+            font-size: 0.85rem;
             font-weight: 600;
-            padding: 0.6rem 1.2rem;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            transition: var(--transition);
+            border: 1px solid transparent;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         nav.nav-links a:hover {
-            background-color: rgba(212, 175, 55, 0.15);
+            background-color: rgba(212, 175, 55, 0.12);
             color: var(--accent-gold);
+            border-color: rgba(212, 175, 55, 0.4);
         }
 
-        /* DISEÑO ESCRITORIO VS MÓVIL */
+        /* ESTRUCTURA PRINCIPAL */
         .main-container {
-            max-width: 1100px;
-            margin: 1.5rem auto;
-            padding: 0 1rem;
+            max-width: 1350px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 3rem;
         }
 
-        @media (min-width: 992px) {
+        @media (min-width: 1024px) {
             .main-container {
-                grid-template-columns: 2fr 1fr;
-            }
-            .menu-toggle { display: none; }
-            nav.nav-links {
-                display: flex !important;
-                position: static;
-                flex-direction: row;
-                background: transparent;
-                border: none;
-                box-shadow: none;
-                padding: 0;
-                gap: 0.2rem;
-                flex-wrap: wrap;
-                justify-content: flex-end;
-            }
-            nav.nav-links a {
-                padding: 0.4rem 0.5rem;
-                font-size: 0.7rem;
-                border: none;
+                grid-template-columns: 8fr 4fr;
             }
         }
 
-        /* TARJETAS */
+        /* TARJETAS CON DISEÑO EXCLUSIVO */
         .card {
             background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-gold);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--primary-light), var(--accent-gold));
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-elevated);
         }
 
         .tag-badge {
-            display: inline-block;
-            background-color: rgba(212, 175, 55, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.25) 100%);
             color: var(--accent-gold-dark);
-            font-size: 0.65rem;
-            font-weight: 700;
+            font-size: 0.75rem;
+            font-weight: 800;
             text-transform: uppercase;
-            padding: 0.3rem 0.7rem;
+            padding: 0.4rem 1.1rem;
             border-radius: 4px;
-            margin-bottom: 0.8rem;
-            letter-spacing: 1px;
-            font-family: 'Cinzel', serif;
+            margin-bottom: 1.25rem;
+            letter-spacing: 1.5px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
         }
 
         .section-title {
-            font-size: 1.35rem;
+            font-size: 2.2rem;
             color: var(--primary);
-            margin-bottom: 1rem;
-            font-weight: 700;
-            font-family: 'Cinzel', serif;
-            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.85rem;
+            font-weight: 800;
         }
 
-        .bio-paragraph {
-            font-size: 0.92rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            text-align: justify;
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 90px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold), transparent);
         }
 
         .quote-box {
-            background-color: #f8fafc;
-            border-left: 3px solid var(--accent-gold);
-            padding: 1rem;
-            border-radius: 0 8px 8px 0;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-            color: #334155;
-            font-style: italic;
+            background: linear-gradient(135deg, #fefcf7 0%, #f7f2e4 100%);
+            border-left: 4px solid var(--accent-gold);
+            padding: 2rem;
+            border-radius: 0 12px 12px 0;
+            margin: 2rem 0;
+            font-size: 1.2rem;
+            color: #4a3b10;
+            line-height: 1.8;
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.05);
+        }
+
+        .bio-paragraph {
+            margin-bottom: 1.5rem;
+            font-size: 1.08rem;
+            color: #374151;
+            text-align: justify;
         }
 
         /* CARRUSEL */
         .carousel-container {
             position: relative;
             width: 100%;
-            height: 280px;
-            border-radius: 8px;
+            height: 540px;
+            border-radius: 12px;
             overflow: hidden;
-            background-color: #000;
-            margin: 1rem 0;
+            margin: 2rem 0;
+            box-shadow: 0 15px 35px rgba(7, 13, 30, 0.3);
+            border: 1px solid var(--accent-gold);
+            background-color: #050917;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-container {
+                height: 380px;
+            }
         }
 
         .carousel-slide {
@@ -280,18 +292,26 @@
             width: 100%;
             height: 100%;
             position: relative;
+            background-color: #050917;
         }
 
         .carousel-slide.active {
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .carousel-slide img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            display: block;
         }
 
         .carousel-caption {
@@ -299,51 +319,87 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            color: #fff;
-            padding: 1rem 0.75rem 0.5rem;
-            font-size: 0.75rem;
+            background: linear-gradient(180deg, transparent 0%, rgba(7, 13, 30, 0.95) 100%);
+            color: #ffffff;
+            padding: 2.5rem 2rem 1.5rem 2rem;
+            font-size: 1rem;
             text-align: center;
-            font-family: 'Cinzel', serif;
+            letter-spacing: 0.5px;
         }
 
         .carousel-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
-            color: #fff;
-            border: none;
-            width: 32px;
-            height: 32px;
+            background: rgba(7, 13, 30, 0.85);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 10;
         }
 
-        .carousel-btn.prev { left: 8px; }
-        .carousel-btn.next { right: 8px; }
+        .carousel-btn:hover {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        }
 
-        /* VIDEO */
+        .carousel-btn.prev { left: 18px; }
+        .carousel-btn.next { right: 18px; }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 14px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background: var(--accent-gold);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        /* REPRODUCTOR DE VIDEO RESPONSIVO */
         .video-container {
             position: relative;
             width: 100%;
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 8px;
-            margin: 1rem 0;
-            background: #000;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 15px 35px rgba(7, 13, 30, 0.25);
+            border: 1px solid var(--accent-gold);
+            background-color: #050917;
         }
 
         .video-container iframe {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border: 0;
         }
 
@@ -351,253 +407,290 @@
         .books-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        @media (min-width: 600px) {
+        @media (min-width: 640px) {
             .books-grid { grid-template-columns: 1fr 1fr; }
         }
 
         .book-card {
-            border: 1px solid var(--border-color);
-            background: #fff;
-            border-radius: 8px;
-            padding: 0.8rem;
+            border: 1px solid var(--border-gold);
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
             display: flex;
-            gap: 0.8rem;
+            gap: 1.5rem;
             align-items: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-elevated);
+            border-color: var(--accent-gold);
         }
 
         .book-cover-img {
-            width: 75px;
-            height: 110px;
+            width: 115px;
+            height: 165px;
             object-fit: cover;
-            border-radius: 4px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
             flex-shrink: 0;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        }
+
+        .book-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            flex: 1;
         }
 
         .book-title-text {
-            font-size: 0.85rem;
+            font-size: 1.05rem;
             color: var(--primary);
             font-weight: 700;
-            line-height: 1.2;
+            line-height: 1.4;
         }
 
         .book-price {
             color: var(--accent-gold-dark);
-            font-size: 0.95rem;
+            font-size: 1.2rem;
             font-weight: 800;
-            margin-top: 0.2rem;
+            margin-top: 0.5rem;
         }
 
         .badge-limited {
             display: inline-block;
             background-color: #fef2f2;
             color: #991b1b;
-            font-size: 0.6rem;
+            font-size: 0.7rem;
             font-weight: 800;
-            padding: 0.2rem 0.5rem;
+            padding: 0.25rem 0.65rem;
             border-radius: 4px;
-            margin-top: 0.3rem;
+            margin-top: 0.4rem;
             text-transform: uppercase;
+            border: 1px solid #fecaca;
         }
 
-        /* AGENDA Y EVENTOS */
-        .event-poster-container {
-            display: flex;
-            gap: 1.2rem;
-            align-items: center;
-            flex-wrap: wrap;
+        /* PDF VIEWER ESTILIZADO */
+        .pdf-viewer-wrapper {
+            background: #ffffff;
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
         }
 
-        .event-poster-img {
-            width: 150px;
-            border-radius: 6px;
-            border: 1px solid var(--accent-gold);
-            flex-shrink: 0;
-            margin: 0 auto;
-        }
-
-        /* FORMULARIOS Y BOTONES */
+        /* BOTONES INSTITUCIONALES */
         .btn-primary {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: #ffffff;
             border: 1px solid var(--accent-gold);
-            padding: 0.7rem 1rem;
+            padding: 0.75rem 1.4rem;
             border-radius: 6px;
-            font-size: 0.78rem;
+            font-size: 0.85rem;
             font-weight: 700;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.4rem;
-            text-transform: uppercase;
-            width: 100%;
+            gap: 0.6rem;
             text-align: center;
-            margin-top: 0.5rem;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
         }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.8rem;
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
+            color: var(--primary-dark);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+            transform: translateY(-2px);
         }
 
-        @media(min-width: 600px) {
-            .form-grid { grid-template-columns: 1fr 1fr; }
+        .btn-icon-svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
         }
 
+        /* FORMULARIOS INSTITUCIONALES */
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 0.3rem;
-            margin-bottom: 0.8rem;
+            gap: 0.4rem;
+            margin-bottom: 1.4rem;
         }
 
         .form-group label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #374151;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .form-group input, .form-group select, .form-group textarea {
-            padding: 0.7rem;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 0.9rem;
-            width: 100%;
-            background: #fdfdfd;
+            padding: 1rem 1.2rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+            background-color: #f9fafb;
             font-family: inherit;
         }
 
-        /* FICHA LATERAL */
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--accent-gold);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
+        }
+
+        /* SIDEBAR FICHA BIOGRÁFICA */
+        .sidebar-sticky {
+            position: sticky;
+            top: 110px;
+        }
+
         .profile-card {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 1.25rem;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
+            background-color: #ffffff;
+            border: 1px solid var(--border-gold);
+            border-radius: 16px;
+            padding: 2.25rem;
+            box-shadow: var(--shadow-subtle);
             text-align: center;
         }
 
         .profile-img {
             width: 100%;
-            max-height: 280px;
+            height: auto;
+            max-height: 380px;
             object-fit: cover;
-            border-radius: 8px;
-            margin: 0.8rem 0;
+            object-position: top;
+            border-radius: 10px;
+            border: 1px solid var(--border-gold);
+            margin: 1.5rem 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
         }
 
         .info-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-align: left;
-            margin-top: 0.5rem;
         }
 
         .info-table td {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #f1f5f9;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid #f3f4f6;
             vertical-align: top;
         }
 
         .info-table td:first-child {
             font-weight: 700;
             color: var(--text-muted);
-            width: 35%;
+            width: 36%;
         }
 
-        /* PDF VIEWER LIMPIO */
-        .pdf-viewer-wrapper {
-            background: #ffffff;
-            border: 1px solid var(--border-gold);
-            border-radius: 8px;
-            overflow: hidden;
-            margin: 1rem 0;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-        }
-
+        /* PIE DE PÁGINA */
         footer {
-            background: var(--primary);
-            color: #94a3b8;
-            padding: 2rem 1rem;
-            text-align: center;
-            font-size: 0.8rem;
-            margin-top: 3rem;
+            background: linear-gradient(180deg, #070d1e 0%, #03060f 100%);
+            color: #9ca3af;
+            padding: 4rem 1.5rem 3rem 1.5rem;
+            margin-top: 6rem;
             border-top: 3px solid var(--accent-gold);
+            text-align: center;
+            font-size: 0.9rem;
         }
+
+        footer p { margin-bottom: 0.6rem; }
     </style>
 </head>
 <body>
 
-    <!-- BANNER SUPERIOR -->
-    <div class="top-banner">
-        Profesor ITO (desde 1983) & Director de la Orquesta Clásica de Orizaba
+    <!-- BANNER SUPERIOR CON ICONO SVG -->
+    <div class="top-banner font-cinzel">
+        <svg class="top-banner-icon" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4l7 3.82 7-3.82v-4L12 17l-7-3.82z"/></svg>
+        Profesor de Carrera en el Instituto Tecnológico de Orizaba (ITO) desde 1983 & Director de la Orquesta Clásica de Orizaba
     </div>
 
-    <!-- ENCABEZADO -->
+    <!-- ENCABEZADO Y NAVEGACIÓN -->
     <header>
         <div class="header-container">
             <div class="brand-box">
-                <div class="brand-avatar">A</div>
+                <div class="brand-avatar font-cinzel">A</div>
                 <div>
-                    <span class="brand-sub">Portal Oficial</span>
-                    <h1 class="brand-title">Dr. Armando S. López Macip</h1>
+                    <span class="brand-sub">Portal Oficial & Biográfico</span>
+                    <h1 class="brand-title font-cinzel">Dr. Armando Sacramento López Macip</h1>
                 </div>
             </div>
-
-            <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
-
-            <nav class="nav-links" id="navMenu">
+            <nav class="nav-links">
                 <a href="#biografia">Biografía</a>
                 <a href="#formacion">Formación</a>
                 <a href="#trayectoria">Trayectoria</a>
                 <a href="#publicaciones">Libros</a>
-                <a href="#agenda">Concierto</a>
-                <a href="#historia-orquesta">Historia</a>
+                <a href="#agenda">Concierto & Agenda</a>
+                <a href="#historia-orquesta">Historia OCO</a>
                 <a href="#blog">Blog</a>
                 <a href="#contacto">Contacto</a>
             </nav>
         </div>
     </header>
 
-    <!-- CONTENIDO -->
+    <!-- CONTENEDOR PRINCIPAL -->
     <main class="main-container">
 
+        <!-- COLUMNA PRINCIPAL IZQUIERDA -->
         <div>
-            <!-- BIOGRAFÍA -->
+
+            <!-- SECCIÓN 1: BIOGRAFÍA CON CARRUSEL DE FOTOS -->
             <section id="biografia" class="card">
-                <span class="tag-badge">Semblanza Biográfica</span>
-                <h2 class="section-title">Armando Sacramento López Macip</h2>
-                <p class="bio-paragraph font-garamond" style="font-size: 1.1rem; font-style: italic;">
+                <span class="tag-badge font-cinzel">
+                    <svg class="btn-icon-svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    Semblanza Biográfica Oficial
+                </span>
+                <h1 class="section-title font-cinzel">Armando Sacramento López Macip</h1>
+                <p style="font-size: 1.15rem; color: var(--text-muted); font-style: italic; margin-bottom: 1.5rem;" class="font-garamond">
                     Doctor en Innovación y Formación del Profesorado, Historiador, Cronista del Valle de Orizaba, Director de Orquesta y Escritor.
                 </p>
 
-                <!-- CARRUSEL -->
+                <!-- CARRUSEL INTERACTIVO -->
                 <div class="carousel-container">
                     <button class="carousel-btn prev" onclick="moveSlide(-1)">❮</button>
                     <button class="carousel-btn next" onclick="moveSlide(1)">❯</button>
                     
                     <div class="carousel-slide active">
                         <img src="8c6a5440-b84c-488f-b363-094e50a38053.jpg" alt="Director de Orquesta Clásica">
-                        <div class="carousel-caption">Dirigiendo la Orquesta Clásica de Orizaba A.C. en Gala de Concierto</div>
+                        <div class="carousel-caption font-cinzel">Dirigiendo la Orquesta Clásica de Orizaba A.C. en Gala de Concierto</div>
                     </div>
                     <div class="carousel-slide">
                         <img src="49c03755-8b13-4909-8cbd-bdd2efae2726.jpg" alt="Presentación Historiográfica">
-                        <div class="carousel-caption">Presentación Oficial de Obras Historiográficas</div>
+                        <div class="carousel-caption font-cinzel">Presentación Oficial de Obras Historiográficas</div>
                     </div>
                     <div class="carousel-slide">
                         <img src="c73b2730-1462-4dd0-8a0a-24130870d883.jpg" alt="Doctor Honoris Causa">
-                        <div class="carousel-caption">Doctor Honoris Causa otorgado por la ANHG UNAM</div>
+                        <div class="carousel-caption font-cinzel">Doctor Honoris Causa otorgado por la ANHG UNAM</div>
                     </div>
                     <div class="carousel-slide">
                         <img src="ee35bea6-900d-412b-8676-d4f931770360.jpg" alt="Gala Cultural de Orizaba">
-                        <div class="carousel-caption">Ceremonia de Reconocimiento Cultural e Histórico</div>
+                        <div class="carousel-caption font-cinzel">Ceremonia de Reconocimiento Cultural e Histórico</div>
+                    </div>
+
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="currentSlide(0)"></span>
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
                     </div>
                 </div>
 
@@ -610,291 +703,458 @@
                 </p>
             </section>
 
-            <!-- FORMACIÓN -->
+            <!-- SECCIÓN 2: FORMACIÓN ACADÉMICA -->
             <section id="formacion" class="card">
-                <h2 class="section-title">Formación Académica & Grados Doctorales</h2>
-                <p class="bio-paragraph">Su sólida preparación académica abarca diversas ramas de la ciencia, las humanidades, las artes y la pedagogía técnica:</p>
-                <ul style="list-style: none; font-size: 0.88rem; display: flex; flex-direction: column; gap: 0.6rem;">
-                    <li>◆ <strong>Doctor en Innovación y Formación del Profesorado:</strong> Universidad Autónoma de Madrid.</li>
-                    <li>◆ <strong>Doctor Honoris Causa:</strong> Otorgado por la ANHG UNAM (2025).</li>
-                    <li>◆ <strong>Maestro en Ciencias:</strong> Especialidad en Administración y Desarrollo de la Educación por el Instituto Politécnico Nacional (IPN).</li>
-                    <li>◆ <strong>Licenciado en Historia:</strong> Universidad Autónoma de Zacatecas.</li>
-                    <li>◆ <strong>Licenciado en Educación Artística:</strong> Universidad Veracruzana.</li>
-                    <li>◆ <strong>Ingeniero Industrial Químico:</strong> Instituto Tecnológico de Orizaba (ITO).</li>
-                    <li>◆ <strong>Especialista en Docencia:</strong> CIIDET.</li>
+                <h2 class="section-title font-cinzel">Formación Académica & Grados Doctorales</h2>
+                <p class="bio-paragraph">
+                    Su sólida preparación académica abarca diversas ramas de la ciencia, las humanidades, las artes y la pedagogía técnica:
+                </p>
+                <ul style="list-style: none; margin: 1.5rem 0;">
+                    <li style="padding: 0.9rem 0; border-bottom: 1px dashed var(--border-gold); display: flex; align-items: flex-start; gap: 1rem;">
+                        <span style="color: var(--accent-gold); font-size: 1.1rem;">◆</span>
+                        <span><strong>Doctor en Innovación y Formación del Profesorado:</strong> Universidad Autónoma de Madrid.</span>
+                    </li>
+                    <li style="padding: 0.9rem 0; border-bottom: 1px dashed var(--border-gold); display: flex; align-items: flex-start; gap: 1rem;">
+                        <span style="color: var(--accent-gold); font-size: 1.1rem;">◆</span>
+                        <span><strong>Doctor Honoris Causa:</strong> Otorgado por la ANHG UNAM (2025).</span>
+                    </li>
+                    <li style="padding: 0.9rem 0; border-bottom: 1px dashed var(--border-gold); display: flex; align-items: flex-start; gap: 1rem;">
+                        <span style="color: var(--accent-gold); font-size: 1.1rem;">◆</span>
+                        <span><strong>Maestro en Ciencias:</strong> Especialidad en Administración y Desarrollo de la Educación por el Instituto Politécnico Nacional (IPN).</span>
+                    </li>
+                    <li style="padding: 0.9rem 0; border-bottom: 1px dashed var(--border-gold); display: flex; align-items: flex-start; gap: 1rem;">
+                        <span style="color: var(--accent-gold); font-size: 1.1rem;">◆</span>
+                        <span><strong>Licenciado en Historia:</strong> Universidad Autónoma de Zacatecas.</span>
+                    </li>
+                    <li style="padding: 0.9rem 0; border-bottom: 1px dashed var(--border-gold); display: flex; align-items: flex-start; gap: 1rem;">
+                        <span style="color: var(--accent-gold); font-size: 1.1rem;">◆</span>
+                        <span><strong>Licenciado en Educación Artística:</strong> Universidad Veracruzana.</span>
+                    </li>
+                    <li style="padding: 0.9rem 0; border-bottom: 1px dashed var(--border-gold); display: flex; align-items: flex-start; gap: 1rem;">
+                        <span style="color: var(--accent-gold); font-size: 1.1rem;">◆</span>
+                        <span><strong>Ingeniero Industrial Químico:</strong> Instituto Tecnológico de Orizaba (ITO).</span>
+                    </li>
+                    <li style="padding: 0.9rem 0; border-bottom: 1px dashed var(--border-gold); display: flex; align-items: flex-start; gap: 1rem;">
+                        <span style="color: var(--accent-gold); font-size: 1.1rem;">◆</span>
+                        <span><strong>Especialista en Docencia:</strong> Centro de Investigación Interdisciplinaria de Investigación y Docencia para la Educación Técnica (CIIDET).</span>
+                    </li>
                 </ul>
             </section>
 
-            <!-- TRAYECTORIA Y VIDEO -->
+            <!-- SECCIÓN 3: TRAYECTORIA Y MÚSICA CON VIDEO DE YOUTUBE -->
             <section id="trayectoria" class="card">
-                <h2 class="section-title">Trayectoria Cultural y Dirección Orquestal</h2>
-                <p class="bio-paragraph">Fundó en 1985 la <strong>Orquesta Clásica de Orizaba A.C.</strong>, organización musical independiente que dirige de manera ininterrumpida. Fue Director de la Casa de Cultura del ITO (1990-1995) y Director de Cultura del H. Ayuntamiento de Orizaba.</p>
-                
+                <h2 class="section-title font-cinzel">Trayectoria Cultural y Dirección Orquestal</h2>
+                <p class="bio-paragraph">
+                    Fundó en 1985 la <strong>Orquesta Clásica de Orizaba A.C.</strong>, organización musical independiente que dirige de manera ininterrumpida. Fue Director de la Casa de Cultura del ITO (1990-1995) y Director de Cultura del H. Ayuntamiento de Orizaba en dos periodos edilicios (2001-2004 y 2008-2009).
+                </p>
+
+                <!-- VIDEO DE YOUTUBE CON ENLACE DIRECTO DE RESPALDO -->
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/r4oYzK8Ktd0?rel=0" title="I've got you under my skin - Orquesta Clásica de Orizaba" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/r4oYzK8Ktd0?rel=0" title="I've got you under my skin - Orquesta Clásica de Orizaba, Dir. Armando López Macip" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
 
-                <div style="text-align: center; margin-top: 0.8rem;">
-                    <a href="https://www.youtube.com/watch?v=r4oYzK8Ktd0" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background: linear-gradient(135deg, #a81c1c 0%, #7f1212 100%); border-color: #ef4444; width: auto; display: inline-flex;">
+                <div style="text-align: center; margin-top: 1rem;">
+                    <a href="https://www.youtube.com/watch?v=r4oYzK8Ktd0" target="_blank" class="btn-primary" style="background: linear-gradient(135deg, #a81c1c 0%, #7f1212 100%); border-color: #ef4444;">
+                        <svg class="btn-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         Ver Interpretación en YouTube
                     </a>
                 </div>
             </section>
 
-            <!-- LIBROS (CATÁLOGO COMPLETO DE LOS 13 LIBROS) -->
+            <!-- SECCIÓN 4: CATÁLOGO DE LIBROS -->
             <section id="publicaciones" class="card">
-                <span class="tag-badge">Catálogo Bibliográfico</span>
-                <h2 class="section-title">Libros y Publicaciones del Autor</h2>
-                <p class="bio-paragraph">Colección de obras historiográficas del Dr. Armando Sacramento López Macip.</p>
-                
+                <span class="tag-badge font-cinzel">
+                    <svg class="btn-icon-svg" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+                    Catálogo Bibliográfico Oficial
+                </span>
+                <h2 class="section-title font-cinzel">Libros y Publicaciones del Autor</h2>
+                <p class="bio-paragraph">
+                    Colección de obras historiográficas del Dr. Armando Sacramento López Macip. Haz clic en el botón de cualquier ejemplar para solicitar su envío directamente vía WhatsApp.
+                </p>
+
                 <div class="books-grid">
-                    <!-- Libro 1 -->
+
+                    <!-- LIBRO 1 -->
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.41.jpeg" alt="Historia del Instituto Tecnológico de Orizaba" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">Historia del Instituto Tecnológico de Orizaba</h3>
-                            <div class="book-price">$500.00 MXN</div>
-                            <span class="badge-limited">Últimos ejemplares</span>
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">Historia del Instituto Tecnológico de Orizaba</h3>
+                                <div class="book-price">$500.00 MXN</div>
+                                <span class="badge-limited">Últimos ejemplares</span>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Historia%20del%20Instituto%20Tecnol%C3%B3gico%20de%20Orizaba" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
-                    <!-- Libro 2 -->
+
+                    <!-- LIBRO 2 -->
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.38.jpeg" alt="Historia del Gran Teatro Llave de Orizaba" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">Historia del Gran Teatro Llave de Orizaba</h3>
-                            <div class="book-price">$250.00 MXN</div>
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">Historia del Gran Teatro Llave de Orizaba</h3>
+                                <div class="book-price">$250.00 MXN</div>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Historia%20del%20Gran%20Teatro%20Llave%20de%20Orizaba" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
-                    <!-- Libro 3 -->
+
+                    <!-- LIBRO 3 -->
                     <div class="book-card">
-                        <img src="WhatsApp Image 2026-10-02 at 14.28.41 (1).jpeg" alt="Vida y obra de los Padres del Oratorio" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">Vida y obra de los Padres del Oratorio</h3>
-                            <div class="book-price">$250.00 MXN</div>
+                        <img src="WhatsApp Image 2026-10-02 at 14.28.41 (1).jpeg" alt="Vida y obra de los Padres del Oratorio de San Felipe Neri" class="book-cover-img">
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">Vida y obra de los Padres del Oratorio</h3>
+                                <div class="book-price">$250.00 MXN</div>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Vida%20y%20obra%20de%20los%20Padres%20del%20Oratorio%20de%20San%20Felipe%20Neri" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
-                    <!-- Libro 4 -->
+
+                    <!-- LIBRO 4 -->
                     <div class="book-card">
-                        <img src="WhatsApp Image 2026-10-02 at 14.28.41 (2).jpeg" alt="Orizaba y sus Palacios de Gobierno" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">Orizaba y sus Palacios de Gobierno</h3>
-                            <div class="book-price">$250.00 MXN</div>
+                        <img src="WhatsApp Image 2026-10-02 at 14.28.41 (2).jpeg" alt="Orizaba y sus palacios de gobierno" class="book-cover-img">
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">Orizaba y sus Palacios de Gobierno</h3>
+                                <div class="book-price">$250.00 MXN</div>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Orizaba%20y%20sus%20Palacios%20de%20Gobierno" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
-                    <!-- Libro 5 -->
+
+                    <!-- LIBRO 5 -->
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.36.40.jpeg" alt="Historia del Hospital Regional de Río Blanco" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">Historia del Hospital Regional de Río Blanco</h3>
-                            <div class="book-price">$250.00 MXN</div>
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">Historia del Hospital Regional de Río Blanco</h3>
+                                <div class="book-price">$250.00 MXN</div>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Historia%20del%20Hospital%20Regional%20de%20R%C3%ADo%20Blanco" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
-                    <!-- Libro 6 -->
+
+                    <!-- LIBRO 6 -->
                     <div class="book-card">
-                        <img src="WhatsApp Image 2026-10-02 at 14.28.39 (2).jpeg" alt="Historia del templo y convento de San José de Gracia" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">Templo y Convento de San José de Gracia</h3>
-                            <div class="book-price">$250.00 MXN</div>
+                        <img src="WhatsApp Image 2026-10-02 at 14.28.39 (2).jpeg" alt="Historia del Templo y Convento de San José de Gracia" class="book-cover-img">
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">Convento de San José de Gracia</h3>
+                                <div class="book-price">$250.00 MXN</div>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Historia%20del%20Templo%20y%20Convento%20de%20San%20Jos%C3%A9%20de%20Gracia" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
-                    <!-- Libro 7 -->
+
+                    <!-- LIBRO 7 -->
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.42.jpeg" alt="Río Blanco Cuna del Movimiento Obrero" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">Río Blanco Cuna del Movimiento Obrero</h3>
-                            <div class="book-price">$250.00 MXN</div>
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">Río Blanco Cuna del Movimiento Obrero</h3>
+                                <div class="book-price">$250.00 MXN</div>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20R%C3%ADo%20Blanco%20Cuna%20del%20Movimiento%20Obrero" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
-                    <!-- Libro 8 -->
+
+                    <!-- LIBRO 8 -->
                     <div class="book-card">
-                        <img src="WhatsApp Image 2026-10-02 at 14.28.40.jpeg" alt="El Legado de los Mártires de 1907" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">El Legado de los Mártires de 1907</h3>
-                            <div class="book-price">$250.00 MXN</div>
+                        <img src="WhatsApp Image 2026-10-02 at 14.28.40.jpeg" alt="Río Blanco El Legado de los Mártires de 1907" class="book-cover-img">
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">El Legado de los Mártires de 1907</h3>
+                                <div class="book-price">$250.00 MXN</div>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20R%C3%ADo%20Blanco%20El%20Legado%20de%20los%20M%C3%A1rtires%20de%201907" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
-                    <!-- Libro 9 -->
+
+                    <!-- LIBRO 9 -->
                     <div class="book-card">
-                        <img src="WhatsApp Image 2026-10-02 at 14.28.40 (1).jpeg" alt="Río Blanco: Pionero de la Ed. Técnica" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">Río Blanco: Pionero de la Ed. Técnica</h3>
-                            <div class="book-price">$250.00 MXN</div>
+                        <img src="WhatsApp Image 2026-10-02 at 14.28.40 (1).jpeg" alt="Río Blanco pueblo fabril, pionero de la Educación Técnica" class="book-cover-img">
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">Río Blanco: Pionero de la Ed. Técnica</h3>
+                                <div class="book-price">$250.00 MXN</div>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20R%C3%ADo%20Blanco%20pueblo%20fabril,%20pionero%20de%20la%20Educaci%C3%B3n%20T%C3%A9cnica" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
-                    <!-- Libro 10 -->
+
+                    <!-- LIBRO 10 -->
                     <div class="book-card">
-                        <img src="WhatsApp Image 2026-10-02 at 14.28.39 (1).jpeg" alt="Gral. Ignacio de la Llave" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">Gral. Ignacio de la Llave</h3>
-                            <div class="book-price">$250.00 MXN</div>
+                        <img src="WhatsApp Image 2026-10-02 at 14.28.39 (1).jpeg" alt="Gral. Ignacio de la Llave Benemérito de la Patria" class="book-cover-img">
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">Gral. Ignacio de la Llave</h3>
+                                <div class="book-price">$250.00 MXN</div>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Gral.%20Ignacio%20de%20la%20Llave%20Benem%C3%A9rito%20de%20la%20Patria" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
-                    <!-- Libro 11 -->
+
+                    <!-- LIBRO 11 -->
                     <div class="book-card">
-                        <img src="WhatsApp Image 2026-10-02 at 14.28.39.jpeg" alt="Nogales, Ver. Historia Básica" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">Nogales, Ver. Historia Básica</h3>
-                            <div class="book-price">$250.00 MXN</div>
+                        <img src="WhatsApp Image 2026-10-02 at 14.28.39.jpeg" alt="Nogales, Ver. Historia básica" class="book-cover-img">
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">Nogales, Ver. Historia Básica</h3>
+                                <div class="book-price">$250.00 MXN</div>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Nogales,%20Ver.%20Historia%20B%C3%A1sica" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
-                    <!-- Libro 12 -->
+
+                    <!-- LIBRO 12 -->
                     <div class="book-card">
-                        <img src="libro_independencia.jpg" alt="Consumación de la Independencia" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">Consumación de la Independencia</h3>
-                            <div class="book-price">$250.00 MXN</div>
+                        <img src="libro_independencia.jpg" alt="Memorias y Miradas de la Consumación de la Independencia" class="book-cover-img">
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">Consumación de la Independencia</h3>
+                                <div class="book-price">$250.00 MXN</div>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Memorias%20y%20Miradas%20de%20la%20Consumaci%C3%B3n%20de%20la%20Independencia" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
-                    <!-- Libro 13 -->
+
+                    <!-- LIBRO 13 -->
                     <div class="book-card">
                         <img src="libro_tratados_cordoba.jpg" alt="Los Tratados de Córdoba y el Bicentenario" class="book-cover-img">
-                        <div>
-                            <h3 class="book-title-text">Los Tratados de Córdoba y el Bicentenario</h3>
-                            <div class="book-price">$250.00 MXN</div>
+                        <div class="book-info">
+                            <div>
+                                <h3 class="book-title-text font-cinzel">Los Tratados de Córdoba y el Bicentenario</h3>
+                                <div class="book-price">$250.00 MXN</div>
+                            </div>
+                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Los%20Tratados%20de%20C%C3%B3rdoba" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
                         </div>
                     </div>
+
                 </div>
             </section>
 
-            <!-- AGENDA Y CONCIERTO -->
+            <!-- SECCIÓN 5: AGENDA CULTURAL Y CONCIERTO -->
             <section id="agenda" class="card">
-                <span class="tag-badge">Agenda Cultural</span>
-                <h2 class="section-title">Próximo Concierto Homenaje</h2>
+                <span class="tag-badge font-cinzel">
+                    <svg class="btn-icon-svg" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
+                    Agenda Cultural & Gala de Concierto
+                </span>
+                <h2 class="section-title font-cinzel">Próximo Concierto Homenaje</h2>
 
-                <div style="background: #f8fafc; border: 1px solid var(--border-gold); border-radius: 10px; padding: 1rem; margin-bottom: 1.5rem;">
-                    <div class="event-poster-container">
-                        <img src="82dd2175-ceb0-445c-aef9-cb2d9cb3e1ce.jpg" alt="Cartel Concierto Cri-Cri" class="event-poster-img">
-                        <div style="flex: 1; min-width: 200px;">
-                            <h3 class="font-cinzel" style="font-size: 1.05rem; color: var(--primary); margin-bottom: 0.3rem;">Concierto Homenaje a: Francisco Gabilondo Soler "Cri-Cri"</h3>
-                            <p style="font-size: 0.85rem; color: var(--accent-gold-dark); font-weight: 700; margin-bottom: 0.5rem;">Orquesta Clásica de Orizaba • Dir. Dr. Armando López Macip</p>
-                            <div style="font-size: 0.82rem; color: #334155; display: flex; flex-direction: column; gap: 0.2rem;">
-                                <div><strong>Fecha:</strong> 6 de Octubre (8:00 pm)</div>
+                <div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 1px solid var(--border-gold); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                    <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+                        <img src="82dd2175-ceb0-445c-aef9-cb2d9cb3e1ce.jpg" alt="Cartel Concierto Cri-Cri" style="width: 160px; border-radius: 8px; border: 1px solid var(--accent-gold); flex-shrink: 0; margin: 0 auto;">
+                        
+                        <div style="flex: 1; min-width: 260px;">
+                            <h3 class="font-cinzel" style="font-size: 1.4rem; color: var(--primary); margin-bottom: 0.6rem;">
+                                Concierto Homenaje a: Francisco Gabilondo Soler "Cri-Cri"
+                            </h3>
+                            
+                            <p style="font-size: 1rem; color: var(--accent-gold-dark); font-weight: 700; margin-bottom: 1rem;">
+                                Orquesta Clásica de Orizaba A.C. • Dir. Dr. Armando López Macip
+                            </p>
+
+                            <div style="background-color: #ffffff; padding: 1.25rem; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
+                                <div><strong>Fecha:</strong> 6 de Octubre</div>
+                                <div><strong>Hora:</strong> 8:00 pm</div>
                                 <div><strong>Lugar:</strong> Teatro Ignacio de la Llave, Orizaba</div>
                                 <div><strong>Cooperación:</strong> $50.00 MXN</div>
                             </div>
-                            <p style="font-size: 0.78rem; color: #64748b; margin-top: 0.5rem;"><strong>Boletos:</strong> Musical Yañez | <strong>WhatsApp:</strong> 272 723 31 14</p>
+
+                            <p style="font-size: 0.9rem; color: #4b5563; margin: 1rem 0;">
+                                <strong>Participación Especial:</strong><br>
+                                Rocío Matamoros, Jeshua Hernández y el Ballet Clásico de la Mtra. Vanhlla Montero.
+                            </p>
+
+                            <div style="font-size: 0.85rem; color: #374151; background: #ffffff; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent-gold);">
+                                <strong>Venta de boletos:</strong> Musical Yañez<br>
+                                <strong>Informes & WhatsApp:</strong> 272 723 31 14 | armandolopezmacip@gmail.com
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <h3 class="font-cinzel" style="font-size: 1.1rem; color: var(--primary); margin-bottom: 0.4rem;">Registro para Audición o Talleres</h3>
-                <form onsubmit="alert('Inscripción enviada exitosamente.'); return false;">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Nombre Completo</label>
-                            <input type="text" required>
+                <!-- FORMULARIO DE AUDICIÓN -->
+                <div style="margin-top: 2.5rem; border-top: 1px solid #e2e8f0; padding-top: 2rem;">
+                    <h3 class="font-cinzel" style="font-size: 1.3rem; color: var(--primary); margin-bottom: 0.5rem;">Registro para Audición o Talleres Libres</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">Completa tus datos institucionales para recibir informes directos.</p>
+
+                    <form onsubmit="alert('Inscripción enviada exitosamente. Nos comunicaremos contigo a la brevedad.'); return false;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;">
+                            <div class="form-group">
+                                <label>Nombre Completo</label>
+                                <input type="text" placeholder="Ej. Juan Pérez" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Correo Electrónico / WhatsApp</label>
+                                <input type="text" placeholder="272 723 31 14 o correo@ejemplo.com" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Correo / WhatsApp</label>
-                            <input type="text" required>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-primary">Enviar Solicitud</button>
-                </form>
+                        <button type="submit" class="btn-primary" style="width: 100%; padding: 0.95rem;">Enviar Solicitud de Registro</button>
+                    </form>
+                </div>
             </section>
 
-            <!-- SECCIÓN HISTORIA DE LA ORQUESTA (PREVISUALIZACIÓN PDF LIMPIA Y CORREGIDA) -->
+            <!-- SECCIÓN 6: HISTORIA DE LA ORQUESTA (VISOR PDF) -->
             <section id="historia-orquesta" class="card">
-                <span class="tag-badge font-cinzel">Reseña Histórica OCO</span>
-                <h2 class="section-title font-cinzel">Historia de la Orquesta</h2>
+                <span class="tag-badge font-cinzel">
+                    <svg class="btn-icon-svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    Reseña Histórica OCO
+                </span>
+                <h2 class="section-title font-cinzel">Historia de la Orquesta Clásica de Orizaba</h2>
                 <p class="bio-paragraph">
                     Conoce el origen, evolución y legado cultural de la Orquesta Clásica de Orizaba A.C., fundada en 1985 bajo la dirección del Dr. Armando López Macip.
                 </p>
 
-                <div class="pdf-viewer-wrapper" style="height: 450px;">
+                <div class="pdf-viewer-wrapper" style="height: 500px;">
                     <object data="historia_orquesta.pdf#toolbar=0&navpanes=0&scrollbar=1" type="application/pdf" width="100%" height="100%">
                         <iframe src="historia_orquesta.pdf#toolbar=0&navpanes=0" width="100%" height="100%" style="border: none; background: #ffffff;">
-                            <p style="padding: 1rem; text-align: center;">Su navegador no soporta la visualización previa directa.</p>
+                            <p style="padding: 1rem; text-align: center;">Su navegador no soporta la visualización previa directa del documento.</p>
                         </iframe>
                     </object>
                 </div>
 
-                <div style="display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;">
-                    <a href="historia_orquesta.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary" style="width: auto; padding: 0.6rem 1.2rem;">
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+                    <a href="historia_orquesta.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary" style="width: auto; padding: 0.75rem 1.5rem;">
                         Abrir PDF Completo
                     </a>
-                    <a href="historia_orquesta.pdf" download class="btn-primary" style="width: auto; padding: 0.6rem 1.2rem; background: transparent; color: var(--primary); border: 1px solid var(--accent-gold);">
+                    <a href="historia_orquesta.pdf" download class="btn-primary" style="width: auto; padding: 0.75rem 1.5rem; background: transparent; color: var(--primary); border: 1px solid var(--accent-gold);">
                         Descargar Documento
                     </a>
                 </div>
             </section>
 
-            <!-- BLOG -->
+            <!-- SECCIÓN 7: BLOG DEL MAESTRO CONECTADO A SUPABASE -->
             <section id="blog" class="card">
-                <h2 class="section-title">El Blog del Maestro</h2>
+                <span class="tag-badge font-cinzel">
+                    <svg class="btn-icon-svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    Ensayos & Reflexiones
+                </span>
+                <h2 class="section-title font-cinzel">El Blog del Maestro</h2>
+                <p class="bio-paragraph">
+                    Espacio de divulgación e historia administrado directamente por el Dr. Armando S. López Macip.
+                </p>
+
+                <!-- Contenedor dinámico de publicaciones cargado desde Supabase -->
                 <div id="blog-posts-container">
-                    <p style="color: var(--text-muted); font-size: 0.85rem;">Cargando publicaciones...</p>
+                    <p style="color: var(--text-muted);">Cargando publicaciones del maestro...</p>
                 </div>
-                <div style="text-align: right; margin-top: 1rem;">
-                    <a href="admin.html" target="_blank" style="font-size: 0.75rem; color: var(--text-muted); text-decoration: underline;">Acceso Administrador</a>
+
+                <div style="text-align: right; margin-top: 1.5rem; border-top: 1px solid #e2e8f0; padding-top: 1rem;">
+                    <a href="admin.html" target="_blank" style="font-size: 0.8rem; color: var(--text-muted); text-decoration: underline;">
+                        Acceso para Administrador (Dr. López Macip)
+                    </a>
                 </div>
             </section>
 
-            <!-- CONTACTO -->
+             <!-- SECCIÓN 8: CONTACTO DIRECTO -->
             <section id="contacto" class="card">
-                <h2 class="section-title">Contacto Directo</h2>
-                <form onsubmit="alert('Mensaje enviado con éxito.'); return false;">
-                    <div class="form-grid">
+                <h2 class="section-title font-serif">Contacto Directo con el Maestro</h2>
+                <p class="bio-paragraph">
+                    Envía un mensaje o consulta directamente al Dr. López Macip para asuntos académicos, historiográficos, conferencias o boletos de la Orquesta Clásica.
+                </p>
+
+                <form onsubmit="alert('Tu correo ha sido enviado con éxito al Dr. López Macip.'); return false;" style="margin-top: 1.5rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                         <div class="form-group">
-                            <label>Nombre</label>
-                            <input type="text" required>
+                            <label>Tu Nombre Completo:</label>
+                            <input type="text" placeholder="Ej. Ana María Gómez" required>
                         </div>
                         <div class="form-group">
-                            <label>Correo Electrónico</label>
-                            <input type="email" required>
+                            <label>Tu Correo Electrónico:</label>
+                            <input type="email" placeholder="ejemplo@correo.com" required>
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label>Asunto</label>
+                        <label>Asunto del Correo:</label>
                         <select required>
-                            <option value="">-- Seleccionar --</option>
-                            <option>Concierto Cri-Cri</option>
+                            <option value="">-- Seleccionar Asunto --</option>
+                            <option>Concierto Cri-Cri (6 de Octubre)</option>
                             <option>Adquisición de Libros</option>
                             <option>Consulta Académica / ITO</option>
+                            <option>Investigación Histórica / Libros</option>
                             <option>Orquesta Clásica de Orizaba</option>
+                            <option>Invitación a Conferencia / Evento</option>
                         </select>
                     </div>
+
                     <div class="form-group">
-                        <label>Mensaje</label>
-                        <textarea rows="3" required></textarea>
+                        <label>Mensaje:</label>
+                        <textarea rows="5" placeholder="Redacta tu correo directo aquí..." required></textarea>
                     </div>
-                    <button type="submit" class="btn-primary">Enviar Correo</button>
+
+                    <button type="submit" class="btn-primary" style="width: 100%; padding: 1rem; font-size: 1rem;">
+                        Enviar Correo Directo
+                    </button>
                 </form>
             </section>
+
         </div>
 
-        <!-- FICHA LATERAL -->
-        <aside>
+        <!-- COLUMNA DERECHA FICHA TÉCNICA -->
+        <aside class="sidebar-sticky">
             <div class="profile-card">
-                <span class="tag-badge">Ficha Enciclopédica</span>
-                <h3 class="font-cinzel" style="font-size: 1.05rem; color: var(--primary); margin-top: 0.4rem;">Dr. Armando S. López Macip</h3>
-                <img src="c73b2730-1462-4dd0-8a0a-24130870d883.jpg" alt="Dr. Armando S. López Macip" class="profile-img">
+                <span class="tag-badge font-cinzel" style="width: 100%; justify-content: center;">Ficha Enciclopédica</span>
+                <h3 class="font-cinzel" style="font-size: 1.35rem; color: var(--primary); margin-top: 0.5rem;">Dr. Armando S. López Macip</h3>
+                <p style="font-size: 0.85rem; color: var(--accent-gold-dark); font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Cronista, Académico y Director Orquestal</p>
+
+                <img src="c73b2730-1462-4dd0-8a0a-24130870d883.jpg" alt="Dr. Armando Sacramento López Macip" class="profile-img">
 
                 <table class="info-table">
-                    <tr><td>Nombre:</td><td>Armando Sacramento López Macip</td></tr>
-                    <tr><td>Nacimiento:</td><td>27 Oct 1960 (Orizaba, Ver.)</td></tr>
-                    <tr><td>Ocupación:</td><td>Profesor, Historiador, Director</td></tr>
-                    <tr><td>Doctorados:</td><td>Univ. Autónoma de Madrid & Honoris Causa ANHG UNAM</td></tr>
-                    <tr><td>Orquesta:</td><td>Orquesta Clásica de Orizaba (1985)</td></tr>
-                    <tr><td>Contacto:</td><td>272 723 31 14<br>arlomaci@gmail.com</td></tr>
+                    <tr>
+                        <td>Nombre:</td>
+                        <td>Armando Sacramento López Macip</td>
+                    </tr>
+                    <tr>
+                        <td>Nacimiento:</td>
+                        <td>27 de octubre de 1960 (Orizaba, Ver.)</td>
+                    </tr>
+                    <tr>
+                        <td>Ocupación:</td>
+                        <td>Profesor de Carrera, Historiador, Escritor, Director de Orquesta</td>
+                    </tr>
+                    <tr>
+                        <td>Doctorados:</td>
+                        <td>Doctor por la Univ. Autónoma de Madrid & Doctor Honoris Causa ANHG UNAM</td>
+                    </tr>
+                    <tr>
+                        <td>Institución:</td>
+                        <td>Instituto Tecnológico de Orizaba (desde 1983)</td>
+                    </tr>
+                    <tr>
+                        <td>Cargos:</td>
+                        <td>Cronista del Valle de Orizaba y Pte. de la ANHG Filial Veracruz</td>
+                    </tr>
+                    <tr>
+                        <td>Orquesta:</td>
+                        <td>Orquesta Clásica de Orizaba A.C. (Fundador en 1985)</td>
+                    </tr>
+                    <tr>
+                        <td>Contacto:</td>
+                        <td>272 723 31 14<br>armandolopezmacip@gmail.com</td>
+                    </tr>
                 </table>
             </div>
         </aside>
 
     </main>
 
-    <!-- PIE -->
+    <!-- PIE DE PÁGINA -->
     <footer>
-        <p class="font-cinzel" style="color: var(--accent-gold); margin-bottom: 0.3rem;">© 2026 Portal Cultural Dr. Armando Sacramento López Macip</p>
-        <p>Orizaba, Veracruz, México</p>
+        <p class="font-cinzel" style="font-size: 1.05rem; color: var(--accent-gold);">© 2026 Portal Cultural Dr. Armando Sacramento López Macip</p>
+        <p>Proyecto de Homenaje Biográfico & Difusión Patrimonial • Orizaba, Veracruz, México</p>
     </footer>
 
-    <!-- SCRIPTS -->
+    <!-- SCRIPT DE CARRUSEL, SUPABASE Y CARGA DE BLOG -->
     <script>
+        // CONFIGURACIÓN DE SUPABASE CON TU CLAVE ACTUALIZADA
         const SUPABASE_URL = "https://etkoxhktchavxvgnnhof.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0a294aGt0Y2hhdnh2Z25uaG9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODU5MTYsImV4cCI6MjE4NTY2MTkxNn0.9zxWtUbaJ1JoGn0GWbJSxlhJwhDDtEwn65Y73oFlye0";
+        const SUPABASE_ANON_KEY = "sb_publishable__rzKmgHnYnWex6PHLrPPXQ_ign0-jxO";
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        // FUNCIÓN PARA CARGAR LAS PUBLICACIONES DEL ADMIN AL INDEX
         async function cargarBlog() {
             const container = document.getElementById('blog-posts-container');
             try {
@@ -903,52 +1163,58 @@
                     .select('*')
                     .order('created_at', { ascending: false });
 
-                if (error || !posts || posts.length === 0) {
-                    container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem;">No hay publicaciones recientes aún.</p>';
+                if (error) {
+                    container.innerHTML = `<p style="color: #ef4444; font-size: 0.85rem;">Error al cargar publicaciones: ${error.message}</p>`;
+                    return;
+                }
+
+                if (!posts || posts.length === 0) {
+                    container.innerHTML = '<p style="color: var(--text-muted);">No hay publicaciones recientes aún.</p>';
                     return;
                 }
 
                 container.innerHTML = posts.map(post => `
-                    <article style="border-left: 3px solid var(--accent-gold); padding: 0.8rem; background: #f8fafc; margin-bottom: 0.8rem; border-radius: 0 6px 6px 0;">
-                        <small style="color: var(--accent-gold-dark); font-weight: 700; font-size: 0.7rem;">${post.category || 'General'} • ${new Date(post.created_at).toLocaleDateString('es-MX')}</small>
-                        <h4 style="color: var(--primary); font-size: 0.95rem; margin: 0.2rem 0;">${post.title}</h4>
-                        <p style="font-size: 0.85rem; color: #475569;">${post.content}</p>
+                    <article class="blog-post" style="border-left: 4px solid var(--accent-gold); padding: 1.5rem; background-color: #f8fafc; border-radius: 0 12px 12px 0; margin-bottom: 1.5rem;">
+                        <span class="blog-date font-cinzel" style="font-size: 0.78rem; color: var(--accent-gold-dark); font-weight: 800; text-transform: uppercase;">
+                            ${post.category || 'General'} • ${new Date(post.created_at).toLocaleDateString('es-MX')}
+                        </span>
+                        <h3 class="blog-title font-cinzel" style="font-size: 1.25rem; color: var(--primary); margin: 0.4rem 0 0.6rem 0;">
+                            ${post.title}
+                        </h3>
+                        <p style="font-size: 0.98rem; color: #4b5563; white-space: pre-line;">
+                            ${post.content}
+                        </p>
                     </article>
                 `).join('');
             } catch (err) {
-                container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem;">No hay publicaciones disponibles.</p>';
+                container.innerHTML = '<p style="color: var(--text-muted);">No hay publicaciones disponibles en este momento.</p>';
             }
         }
 
+        // LLAMADA AUTOMÁTICA AL CARGAR LA PÁGINA
         cargarBlog();
 
-        // MENÚ HAMBURGUESA
-        const menuToggle = document.getElementById('menuToggle');
-        const navMenu = document.getElementById('navMenu');
-
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
-        document.querySelectorAll('#navMenu a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        });
-
-        // CARRUSEL
+        // CONTROL DEL CARRUSEL DE FOTOS
         let slideIndex = 0;
         const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.dot');
 
         function showSlide(index) {
             if (index >= slides.length) slideIndex = 0;
             if (index < 0) slideIndex = slides.length - 1;
+
             slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
             if (slides[slideIndex]) slides[slideIndex].classList.add('active');
+            if (dots[slideIndex]) dots[slideIndex].classList.add('active');
         }
 
         function moveSlide(n) { showSlide(slideIndex += n); }
+        function currentSlide(n) { showSlide(slideIndex = n); }
+
         setInterval(() => { moveSlide(1); }, 5000);
     </script>
+
 </body>
 </html>
