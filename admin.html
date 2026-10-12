@@ -15,7 +15,7 @@
         input, select, textarea { padding: 0.8rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; font-family: inherit; width: 100%; box-sizing: border-box; }
         button { background: #d4af37; color: #0b132b; border: none; padding: 1rem; border-radius: 6px; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; width: 100%; }
         button:hover { background: #f3c63f; }
-        .btn-delete { background: #ef4444; color: #fff; padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 4px; width: auto; }
+        .btn-delete { background: #ef4444; color: #fff; padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 4px; width: auto; border: none; cursor: pointer; }
         .btn-delete:hover { background: #dc2626; }
         .post-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding: 1rem 0; flex-wrap: wrap; gap: 1rem; }
         .post-item:last-child { border-bottom: none; }
@@ -33,7 +33,7 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE ACCESO (CONTRASEÑA) -->
+    <!-- PANTALLA DE ACCESO -->
     <div id="auth-screen" class="card">
         <h1>Acceso Maestro</h1>
         <p style="margin-bottom: 1.5rem; color: #64748b;">Ingrese la clave de acceso para administrar el blog:</p>
@@ -44,7 +44,7 @@
         <a href="index.html" class="back-link">← Volver al inicio del blog</a>
     </div>
 
-    <!-- PANEL DE ADMINISTRACIÓN (OCULTO HASTA PONER CONTRASEÑA) -->
+    <!-- PANEL DE ADMINISTRACIÓN -->
     <div id="admin-panel" style="display: none;">
         
         <!-- FORMULARIO DE PUBLICACIÓN -->
@@ -88,10 +88,10 @@
 
     </div>
 
-    <!-- SCRIPTS INTEGRADOS -->
     <script>
         const SUPABASE_URL = "https://etkoxhktchavxvgnnhof.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0a294aGt0Y2hhdnh2Z25uaG9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwODU5MTYsImV4cCI6MjE0NjY2MTkxNn0.9zxWtUbaJ1JoGn0GWbJSxlhJwhDDtEwn65Y73oFlye0";
+        // Sustituye la siguiente variable por la API Key válida obtenida de tu panel de Supabase:
+        const SUPABASE_ANON_KEY = "sb_publishable__rzKmgHnYnWex6PHLrPPXQ_ign0-jxO";
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         const CONTRASEÑA_MAESTRO = "Orizaba2026*"; 
@@ -128,13 +128,14 @@
 
         async function cargarPublicaciones() {
             const listContainer = document.getElementById('posts-list');
+            
             const { data: posts, error } = await supabaseClient
                 .from('blog_posts')
                 .select('*')
                 .order('created_at', { ascending: false });
 
             if (error) {
-                listContainer.innerHTML = '<p style="color: red;">Error al cargar las publicaciones.</p>';
+                listContainer.innerHTML = `<p style="color: #ef4444; font-weight: 600;">Error al conectar con la base de datos: ${error.message}</p>`;
                 return;
             }
 
@@ -160,8 +161,7 @@
                 const { data, error } = await supabaseClient
                     .from('blog_posts')
                     .delete()
-                    .eq('id', id)
-                    .select();
+                    .eq('id', id);
 
                 if (error) {
                     alert('Error al eliminar: ' + error.message);
@@ -171,16 +171,6 @@
                 }
             }
         }
-
-        // SCRIPT UNIVERSAL DE ADAPTABILIDAD MÓVIL
-        document.addEventListener('DOMContentLoaded', () => {
-            const camposFormulario = document.querySelectorAll('input, select, textarea');
-            camposFormulario.forEach(campo => {
-                campo.addEventListener('focus', () => {
-                    if (window.innerWidth <= 768) campo.style.fontSize = '16px';
-                });
-            });
-        });
     </script>
 </body>
 </html>
