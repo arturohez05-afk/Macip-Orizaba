@@ -415,11 +415,11 @@
             border: 0;
         }
 
-        /* GRID DE LIBROS */
+        /* GRID DE LIBROS OPTIMIZADA */
         .books-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 2rem;
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
@@ -431,52 +431,51 @@
             border: 1px solid var(--border-gold);
             background-color: #ffffff;
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1.25rem;
             display: flex;
-            gap: 1.5rem;
+            gap: 1.25rem;
             align-items: center;
             transition: var(--transition);
             box-shadow: var(--shadow-subtle);
         }
 
         .book-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
             box-shadow: var(--shadow-elevated);
             border-color: var(--accent-gold);
         }
 
         .book-cover-img {
-            width: 115px;
-            height: 165px;
+            width: 90px;
+            height: 130px;
             object-fit: cover;
             border-radius: 6px;
             border: 1px solid #d1d5db;
             flex-shrink: 0;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.12);
         }
 
         .book-info {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
+            justify-content: center;
             flex: 1;
             min-width: 0;
         }
 
         .book-title-text {
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: var(--primary);
             font-weight: 700;
-            line-height: 1.4;
+            line-height: 1.35;
             word-break: break-word;
         }
 
         .book-price {
             color: var(--accent-gold-dark);
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 800;
-            margin-top: 0.5rem;
+            margin-top: 0.4rem;
         }
 
         .badge-limited {
@@ -485,11 +484,12 @@
             color: #991b1b;
             font-size: 0.7rem;
             font-weight: 800;
-            padding: 0.25rem 0.65rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 4px;
-            margin-top: 0.4rem;
+            margin-top: 0.3rem;
             text-transform: uppercase;
             border: 1px solid #fecaca;
+            width: fit-content;
         }
 
         /* PDF VIEWER ESTILIZADO */
@@ -538,12 +538,18 @@
             flex-shrink: 0;
         }
 
-        /* FORMULARIOS INSTITUCIONALES */
+        /* FORMULARIOS INSTITUCIONALES CON GRID RESPONSIVO */
+        .form-grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 0.4rem;
-            margin-bottom: 1.4rem;
+            margin-bottom: 1.2rem;
         }
 
         .form-group label {
@@ -555,7 +561,7 @@
         }
 
         .form-group input, .form-group select, .form-group textarea {
-            padding: 1rem 1.2rem;
+            padding: 0.9rem 1.1rem;
             border: 1px solid #d1d5db;
             border-radius: 8px;
             font-size: 0.95rem;
@@ -633,7 +639,7 @@
         footer p { margin-bottom: 0.6rem; }
 
         /* ========================================================== */
-        /* MEDIA QUERIES PARA MENÚ HAMBURGUESA Y MÓVILES             */
+        /* MEDIA QUERIES PARA RESPONSIVIDAD COMPLETA EN MÓVILES       */
         /* ========================================================== */
         @media (max-width: 900px) {
             .menu-toggle {
@@ -664,17 +670,22 @@
         @media (max-width: 768px) {
             body { padding: 0; }
             .main-container { padding: 0 1rem; margin: 1.5rem auto; gap: 1.5rem; }
-            .card { padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 12px; }
+            .card { padding: 1.25rem; margin-bottom: 1.5rem; border-radius: 12px; }
             .header-container { padding: 0.8rem 1rem; position: relative; }
-            .brand-title { font-size: 1.1rem; }
-            .section-title { font-size: 1.6rem; }
-            .carousel-container { height: 280px; }
-            .books-grid { grid-template-columns: 1fr; }
-            .book-card { flex-direction: column; text-align: center; gap: 1rem; }
-            .book-cover-img { width: 130px; height: 180px; margin: 0 auto; }
-            .book-info { align-items: center; }
+            .brand-title { font-size: 1.05rem; }
+            .section-title { font-size: 1.5rem; }
+            .carousel-container { height: 260px; }
+            
+            /* Ajuste armónico de tarjetas de libros en móvil */
+            .books-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .book-card { padding: 1rem; gap: 1rem; }
+            .book-cover-img { width: 80px; height: 115px; }
+
+            /* Ajuste de formularios a 1 columna en pantalla chica */
+            .form-grid-2col { grid-template-columns: 1fr !important; gap: 0; }
+            
             .event-poster-layout { flex-direction: column !important; text-align: center; }
-            .event-poster-layout img { margin: 0 auto; width: 100% !important; max-width: 220px; }
+            .event-poster-layout img { margin: 0 auto; width: 100% !important; max-width: 200px; }
             .sidebar-sticky { position: static; }
         }
     </style>
@@ -830,7 +841,7 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN 4: CATÁLOGO DE LIBROS -->
+            <!-- SECCIÓN 4: CATÁLOGO DE LIBROS SIN BOTÓN DE ADQUIRIR -->
             <section id="publicaciones" class="card">
                 <span class="tag-badge font-cinzel">
                     <svg class="btn-icon-svg" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
@@ -838,7 +849,7 @@
                 </span>
                 <h2 class="section-title font-cinzel">Libros y Publicaciones del Autor</h2>
                 <p class="bio-paragraph">
-                    Colección de obras historiográficas del Dr. Armando Sacramento López Macip. Haz clic en el botón de cualquier ejemplar para solicitar su envío directamente vía WhatsApp.
+                    Colección de obras historiográficas del Dr. Armando Sacramento López Macip.
                 </p>
 
                 <div class="books-grid">
@@ -846,12 +857,9 @@
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.41.jpeg" alt="Historia del Instituto Tecnológico de Orizaba" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">Historia del Instituto Tecnológico de Orizaba</h3>
-                                <div class="book-price">$500.00 MXN</div>
-                                <span class="badge-limited">Últimos ejemplares</span>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Historia%20del%20Instituto%20Tecnol%C3%B3gico%20de%20Orizaba" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">Historia del Instituto Tecnológico de Orizaba</h3>
+                            <div class="book-price">$500.00 MXN</div>
+                            <span class="badge-limited">Últimos ejemplares</span>
                         </div>
                     </div>
 
@@ -859,11 +867,8 @@
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.38.jpeg" alt="Historia del Gran Teatro Llave de Orizaba" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">Historia del Gran Teatro Llave de Orizaba</h3>
-                                <div class="book-price">$250.00 MXN</div>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Historia%20del%20Gran%20Teatro%20Llave%20de%20Orizaba" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">Historia del Gran Teatro Llave de Orizaba</h3>
+                            <div class="book-price">$250.00 MXN</div>
                         </div>
                     </div>
 
@@ -871,11 +876,8 @@
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.41 (1).jpeg" alt="Vida y obra de los Padres del Oratorio de San Felipe Neri" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">Vida y obra de los Padres del Oratorio</h3>
-                                <div class="book-price">$250.00 MXN</div>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Vida%20y%20obra%20de%20los%20Padres%20del%20Oratorio%20de%20San%20Felipe%20Neri" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">Vida y obra de los Padres del Oratorio</h3>
+                            <div class="book-price">$250.00 MXN</div>
                         </div>
                     </div>
 
@@ -883,11 +885,8 @@
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.41 (2).jpeg" alt="Orizaba y sus palacios de gobierno" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">Orizaba y sus Palacios de Gobierno</h3>
-                                <div class="book-price">$250.00 MXN</div>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Orizaba%20y%20sus%20Palacios%20de%20Gobierno" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">Orizaba y sus Palacios de Gobierno</h3>
+                            <div class="book-price">$250.00 MXN</div>
                         </div>
                     </div>
 
@@ -895,11 +894,8 @@
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.36.40.jpeg" alt="Historia del Hospital Regional de Río Blanco" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">Historia del Hospital Regional de Río Blanco</h3>
-                                <div class="book-price">$250.00 MXN</div>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Historia%20del%20Hospital%20Regional%20de%20R%C3%ADo%20Blanco" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">Historia del Hospital Regional de Río Blanco</h3>
+                            <div class="book-price">$250.00 MXN</div>
                         </div>
                     </div>
 
@@ -907,11 +903,8 @@
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.39 (2).jpeg" alt="Historia del Templo y Convento de San José de Gracia" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">Convento de San José de Gracia</h3>
-                                <div class="book-price">$250.00 MXN</div>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Historia%20del%20Templo%20y%20Convento%20de%20San%20Jos%C3%A9%20de%20Gracia" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">Convento de San José de Gracia</h3>
+                            <div class="book-price">$250.00 MXN</div>
                         </div>
                     </div>
 
@@ -919,11 +912,8 @@
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.42.jpeg" alt="Río Blanco Cuna del Movimiento Obrero" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">Río Blanco Cuna del Movimiento Obrero</h3>
-                                <div class="book-price">$250.00 MXN</div>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20R%C3%ADo%20Blanco%20Cuna%20del%20Movimiento%20Obrero" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">Río Blanco Cuna del Movimiento Obrero</h3>
+                            <div class="book-price">$250.00 MXN</div>
                         </div>
                     </div>
 
@@ -931,11 +921,8 @@
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.40.jpeg" alt="Río Blanco El Legado de los Mártires de 1907" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">El Legado de los Mártires de 1907</h3>
-                                <div class="book-price">$250.00 MXN</div>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20R%C3%ADo%20Blanco%20El%20Legado%20de%20los%20M%C3%A1rtires%20de%201907" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">El Legado de los Mártires de 1907</h3>
+                            <div class="book-price">$250.00 MXN</div>
                         </div>
                     </div>
 
@@ -943,11 +930,8 @@
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.40 (1).jpeg" alt="Río Blanco pueblo fabril, pionero de la Educación Técnica" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">Río Blanco: Pionero de la Ed. Técnica</h3>
-                                <div class="book-price">$250.00 MXN</div>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20R%C3%ADo%20Blanco%20pueblo%20fabril,%20pionero%20de%20la%20Educaci%C3%B3n%20T%C3%A9cnica" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">Río Blanco: Pionero de la Ed. Técnica</h3>
+                            <div class="book-price">$250.00 MXN</div>
                         </div>
                     </div>
 
@@ -955,11 +939,8 @@
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.39 (1).jpeg" alt="Gral. Ignacio de la Llave Benemérito de la Patria" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">Gral. Ignacio de la Llave</h3>
-                                <div class="book-price">$250.00 MXN</div>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Gral.%20Ignacio%20de%20la%20Llave%20Benem%C3%A9rito%20de%20la%20Patria" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">Gral. Ignacio de la Llave</h3>
+                            <div class="book-price">$250.00 MXN</div>
                         </div>
                     </div>
 
@@ -967,11 +948,8 @@
                     <div class="book-card">
                         <img src="WhatsApp Image 2026-10-02 at 14.28.39.jpeg" alt="Nogales, Ver. Historia básica" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">Nogales, Ver. Historia Básica</h3>
-                                <div class="book-price">$250.00 MXN</div>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Nogales,%20Ver.%20Historia%20B%C3%A1sica" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">Nogales, Ver. Historia Básica</h3>
+                            <div class="book-price">$250.00 MXN</div>
                         </div>
                     </div>
 
@@ -979,11 +957,8 @@
                     <div class="book-card">
                         <img src="libro_independencia.jpg" alt="Memorias y Miradas de la Consumación de la Independencia" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">Consumación de la Independencia</h3>
-                                <div class="book-price">$250.00 MXN</div>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Memorias%20y%20Miradas%20de%20la%20Consumaci%C3%B3n%20de%20la%20Independencia" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">Consumación de la Independencia</h3>
+                            <div class="book-price">$250.00 MXN</div>
                         </div>
                     </div>
 
@@ -991,11 +966,8 @@
                     <div class="book-card">
                         <img src="libro_tratados_cordoba.jpg" alt="Los Tratados de Córdoba y el Bicentenario" class="book-cover-img">
                         <div class="book-info">
-                            <div>
-                                <h3 class="book-title-text font-cinzel">Los Tratados de Córdoba y el Bicentenario</h3>
-                                <div class="book-price">$250.00 MXN</div>
-                            </div>
-                            <a href="https://wa.me/522727233114?text=Hola,%20me%20interesa%20adquirir%20el%20libro:%20Los%20Tratados%20de%20C%C3%B3rdoba" target="_blank" class="btn-primary">Adquirir Ejemplar</a>
+                            <h3 class="book-title-text font-cinzel">Los Tratados de Córdoba y el Bicentenario</h3>
+                            <div class="book-price">$250.00 MXN</div>
                         </div>
                     </div>
                 </div>
@@ -1009,16 +981,16 @@
                 </span>
                 <h2 class="section-title font-cinzel">Próximo Concierto Homenaje</h2>
 
-                <div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 1px solid var(--border-gold); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                <div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 1px solid var(--border-gold); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
                     <div class="event-poster-layout" style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
-                        <img src="82dd2175-ceb0-445c-aef9-cb2d9cb3e1ce.jpg" alt="Cartel Concierto Cri-Cri" style="width: 160px; border-radius: 8px; border: 1px solid var(--accent-gold); flex-shrink: 0;">
+                        <img src="82dd2175-ceb0-445c-aef9-cb2d9cb3e1ce.jpg" alt="Cartel Concierto Cri-Cri" style="width: 150px; border-radius: 8px; border: 1px solid var(--accent-gold); flex-shrink: 0;">
                         
-                        <div style="flex: 1; min-width: 240px;">
-                            <h3 class="font-cinzel" style="font-size: 1.4rem; color: var(--primary); margin-bottom: 0.6rem;">
+                        <div style="flex: 1; min-width: 220px;">
+                            <h3 class="font-cinzel" style="font-size: 1.3rem; color: var(--primary); margin-bottom: 0.6rem;">
                                 Concierto Homenaje a: Francisco Gabilondo Soler "Cri-Cri"
                             </h3>
                             
-                            <p style="font-size: 1rem; color: var(--accent-gold-dark); font-weight: 700; margin-bottom: 1rem;">
+                            <p style="font-size: 0.95rem; color: var(--accent-gold-dark); font-weight: 700; margin-bottom: 1rem;">
                                 Orquesta Clásica de Orizaba A.C. • Dir. Dr. Armando López Macip
                             </p>
 
@@ -1048,7 +1020,7 @@
                     <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">Completa tus datos institucionales para recibir informes directos.</p>
 
                     <form onsubmit="alert('Inscripción enviada exitosamente. Nos comunicaremos contigo a la brevedad.'); return false;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;">
+                        <div class="form-grid-2col">
                             <div class="form-group">
                                 <label>Nombre Completo</label>
                                 <input type="text" placeholder="Ej. Juan Pérez" required>
@@ -1074,7 +1046,7 @@
                     Conoce el origen, evolución y legado cultural de la Orquesta Clásica de Orizaba A.C., fundada en 1985 bajo la dirección del Dr. Armando López Macip.
                 </p>
 
-                <div class="pdf-viewer-wrapper" style="height: 450px;">
+                <div class="pdf-viewer-wrapper" style="height: 400px;">
                     <object data="historia_orquesta.pdf#toolbar=0&navpanes=0&scrollbar=1" type="application/pdf" width="100%" height="100%">
                         <iframe src="historia_orquesta.pdf#toolbar=0&navpanes=0" width="100%" height="100%" style="border: none; background: #ffffff;">
                             <p style="padding: 1rem; text-align: center;">Su navegador no soporta la visualización previa directa del documento.</p>
@@ -1123,7 +1095,7 @@
                 </p>
 
                 <form onsubmit="alert('Tu correo ha sido enviado con éxito al Dr. López Macip.'); return false;" style="margin-top: 1.5rem;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-grid-2col">
                         <div class="form-group">
                             <label>Tu Nombre Completo:</label>
                             <input type="text" placeholder="Ej. Ana María Gómez" required>
