@@ -1,11 +1,28 @@
 /**
- * Script de Adaptabilidad Universal (Responsive Total)
- * Funciona para PC, Tablets y Dispositivos Móviles (iOS y Android).
+ * Script de Adaptabilidad Universal (Responsive Total y Menú Hamburguesa)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. Corrección de altura en dispositivos móviles
+    // 1. Control del Menú Hamburguesa
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Cerrar menú automáticamente al hacer clic en un enlace de navegación
+        const enlacesNav = navLinks.querySelectorAll('a');
+        enlacesNav.forEach(enlace => {
+            enlace.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    }
+
+    // 2. Corrección de altura en dispositivos móviles
     const ajustarAlturaMovil = () => {
         let vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -14,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('orientationchange', ajustarAlturaMovil);
     ajustarAlturaMovil();
 
-    // 2. Soporte táctil (Swipe) para el carrusel de fotos
+    // 3. Soporte táctil (Swipe) para el carrusel de fotos
     const contenedorCarrusel = document.querySelector('.carousel-container');
     if (contenedorCarrusel) {
         let xInicial = 0;
@@ -35,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 
-    // 3. Prevención de zoom automático en iPhone/Safari al enfocar formularios
+    // 4. Prevención de zoom automático en iPhone/Safari al enfocar formularios
     const camposFormulario = document.querySelectorAll('input, select, textarea');
     camposFormulario.forEach(campo => {
         campo.addEventListener('focus', () => {
@@ -45,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. Protección de desbordamiento multimedia
+    // 5. Protección de desbordamiento multimedia
     const elementosMultimedia = document.querySelectorAll('iframe, video, .pdf-viewer-wrapper');
     elementosMultimedia.forEach(elemento => {
         elemento.style.maxWidth = '100%';

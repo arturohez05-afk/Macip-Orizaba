@@ -106,7 +106,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
             gap: 1.2rem;
         }
 
@@ -149,6 +148,7 @@
             line-height: 1.2;
         }
 
+        /* NAVEGACIÓN Y MENÚ HAMBURGUESA */
         nav.nav-links {
             display: flex;
             gap: 0.4rem;
@@ -172,6 +172,19 @@
             background-color: rgba(212, 175, 55, 0.12);
             color: var(--accent-gold);
             border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 0.5rem 0.7rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            align-items: center;
+            justify-content: center;
         }
 
         /* ESTRUCTURA PRINCIPAL */
@@ -620,23 +633,46 @@
         footer p { margin-bottom: 0.6rem; }
 
         /* ========================================================== */
-        /* MEDIA QUERIES ADICIONALES PARA ADAPTABILIDAD EN MÓVILES    */
+        /* MEDIA QUERIES PARA MENÚ HAMBURGUESA Y MÓVILES             */
         /* ========================================================== */
+        @media (max-width: 900px) {
+            .menu-toggle {
+                display: flex;
+            }
+            nav.nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: rgba(7, 13, 30, 0.98);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 1rem 1.5rem 1.5rem 1.5rem;
+                border-bottom: 1px solid var(--border-gold);
+                box-shadow: 0 15px 25px rgba(0,0,0,0.4);
+            }
+            nav.nav-links.active {
+                display: flex;
+            }
+            nav.nav-links a {
+                padding: 0.8rem 1rem;
+                text-align: center;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+        }
+
         @media (max-width: 768px) {
             body { padding: 0; }
             .main-container { padding: 0 1rem; margin: 1.5rem auto; gap: 1.5rem; }
             .card { padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 12px; }
-            .header-container { padding: 0.8rem 1rem; flex-direction: column; align-items: stretch; text-align: center; }
-            .brand-box { justify-content: center; flex-direction: column; gap: 0.5rem; }
-            nav.nav-links { justify-content: center; gap: 0.2rem; }
-            nav.nav-links a { font-size: 0.75rem; padding: 0.4rem 0.6rem; }
+            .header-container { padding: 0.8rem 1rem; position: relative; }
+            .brand-title { font-size: 1.1rem; }
             .section-title { font-size: 1.6rem; }
             .carousel-container { height: 280px; }
             .books-grid { grid-template-columns: 1fr; }
             .book-card { flex-direction: column; text-align: center; gap: 1rem; }
             .book-cover-img { width: 130px; height: 180px; margin: 0 auto; }
             .book-info { align-items: center; }
-            .form-grid-mobile { grid-template-columns: 1fr !important; }
             .event-poster-layout { flex-direction: column !important; text-align: center; }
             .event-poster-layout img { margin: 0 auto; width: 100% !important; max-width: 220px; }
             .sidebar-sticky { position: static; }
@@ -651,7 +687,7 @@
         <span>Profesor de Carrera en el Instituto Tecnológico de Orizaba (ITO) desde 1983 & Director de la Orquesta Clásica de Orizaba</span>
     </div>
 
-    <!-- ENCABEZADO Y NAVEGACIÓN -->
+    <!-- ENCABEZADO Y NAVEGACIÓN HAMBURGUESA -->
     <header>
         <div class="header-container">
             <div class="brand-box">
@@ -661,7 +697,13 @@
                     <h1 class="brand-title font-cinzel">Dr. Armando Sacramento López Macip</h1>
                 </div>
             </div>
-            <nav class="nav-links">
+
+            <!-- Botón del Menú Hamburguesa -->
+            <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
+                ☰
+            </button>
+
+            <nav class="nav-links" id="nav-links">
                 <a href="#biografia">Biografía</a>
                 <a href="#formacion">Formación</a>
                 <a href="#trayectoria">Trayectoria</a>
@@ -1006,7 +1048,7 @@
                     <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">Completa tus datos institucionales para recibir informes directos.</p>
 
                     <form onsubmit="alert('Inscripción enviada exitosamente. Nos comunicaremos contigo a la brevedad.'); return false;">
-                        <div class="form-grid-mobile" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;">
                             <div class="form-group">
                                 <label>Nombre Completo</label>
                                 <input type="text" placeholder="Ej. Juan Pérez" required>
@@ -1081,7 +1123,7 @@
                 </p>
 
                 <form onsubmit="alert('Tu correo ha sido enviado con éxito al Dr. López Macip.'); return false;" style="margin-top: 1.5rem;">
-                    <div class="form-grid-mobile" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                         <div class="form-group">
                             <label>Tu Nombre Completo:</label>
                             <input type="text" placeholder="Ej. Ana María Gómez" required>
@@ -1172,7 +1214,7 @@
         <p>Proyecto de Homenaje Biográfico & Difusión Patrimonial • Orizaba, Veracruz, México</p>
     </footer>
 
-    <!-- SCRIPT DE SOPORTE TÁCTIL Y COMPORTAMIENTO MÓVIL -->
+    <!-- SCRIPT DE SOPORTE TÁCTIL Y MENÚ HAMBURGUESA -->
     <script src="script.js"></script>
 
     <!-- SCRIPT DE CARRUSEL, SUPABASE Y CARGA DE BLOG -->
@@ -1219,7 +1261,6 @@
             }
         }
 
-        // LLAMADA AUTOMÁTICA AL CARGAR LA PÁGINA
         cargarBlog();
 
         // CONTROL DEL CARRUSEL DE FOTOS
